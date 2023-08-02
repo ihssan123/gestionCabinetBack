@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.Phaser;
 import java.util.function.Function;
 
-//@Service
+@Service
 public class JwtService {
     private static final String SECRET_KEY="FD428AE8AFAC2ABF4AFC351664A94";
     public String extractUsername(String token) {

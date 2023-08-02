@@ -1,35 +1,30 @@
 package com.cabinet.gestioncabinetback.entities;
 
-import jakarta.persistence.*;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Access(AccessType.FIELD)
-public class patient implements UserDetails {
+public class Doctor implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idPatient;
+    private Long idDoc;
     @Column(name = "nom")
     private String nom;
     @Column(name = "prenom")
@@ -38,38 +33,49 @@ public class patient implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "specialite")
+    private String specialite;
     @Column(name = "numTele")
     private String numTele;
-    @OneToMany(mappedBy="patient")
+    @Column(name = "adresse")
+    private String adresse;
+    @Column(name = "diplome")
+    private String diplome;
+    @OneToMany(mappedBy="doctor")
     private ArrayList<RDV> rdv;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(nom));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

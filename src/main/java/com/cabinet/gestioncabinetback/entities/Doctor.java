@@ -1,8 +1,8 @@
 package com.cabinet.gestioncabinetback.entities;
 
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +24,7 @@ import java.util.List;
 public class Doctor implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idDoc;
+    private Long id;
     @Column(name = "nom")
     private String nom;
     @Column(name = "prenom")

@@ -1,8 +1,8 @@
 package com.cabinet.gestioncabinetback.entities;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -24,7 +24,7 @@ import java.util.Date;
 public class RDV {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idRDV;
+    private Long id;
     @Column(name = "dateRDV")
     private Date dateRDV;
     @Column(name = "etat")

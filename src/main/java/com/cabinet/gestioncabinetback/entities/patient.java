@@ -1,9 +1,9 @@
 package com.cabinet.gestioncabinetback.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,7 +29,7 @@ import java.util.Collection;
 public class patient implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idPatient;
+    private Long id;
     @Column(name = "nom")
     private String nom;
     @Column(name = "prenom")

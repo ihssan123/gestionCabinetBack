@@ -1,17 +1,11 @@
-package com.cabinet.gestioncabinetback.entities;
+package com.cabinet.gestioncabinetback.user;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.cabinet.gestioncabinetback.token.Token;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,32 +15,41 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Doctor implements UserDetails {
+@Setter
+@Getter
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Long idUser;
+
     @Column(name = "nom")
-    private String nom;
+    private String firstname;
     @Column(name = "prenom")
-    private String prenom;
+    private String lastname;
     @Column(name = "email")
     private String email;
     @Column(name = "password")
     private String password;
     @Column(name = "specialite")
-    private String specialite;
+    private String speciality;
     @Column(name = "numTele")
-    private String numTele;
+    private String phoneNumber;
     @Column(name = "adresse")
     private String adresse;
     @Column(name = "diplome")
     private String diplome;
-    @OneToMany(mappedBy="doctor")
-    private ArrayList<RDV> rdv;
+    @OneToMany(mappedBy="user")
+    private List<RDV> rdv;
 
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(nom));
+        return role.getAuthorities();
     }
 
     @Override
@@ -78,4 +81,6 @@ public class Doctor implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

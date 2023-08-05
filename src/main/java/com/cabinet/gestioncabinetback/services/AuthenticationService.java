@@ -4,15 +4,13 @@
 //import com.cabinet.gestioncabinetback.config.JwtService;
 //import com.cabinet.gestioncabinetback.controllers.AuthenticationResponse;
 //import com.cabinet.gestioncabinetback.controllers.RegisterRequest;
-//import com.cabinet.gestioncabinetback.entities.Doctor;
-//import com.cabinet.gestioncabinetback.repositories.DoctorRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.stereotype.Service;
 //
-////@Service
+//@Service
 //@RequiredArgsConstructor
 //public class AuthenticationService {
 //    private final DoctorRepository doctorRepository;

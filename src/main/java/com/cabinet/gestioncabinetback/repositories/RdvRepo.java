@@ -1,11 +1,11 @@
 package com.cabinet.gestioncabinetback.repositories;
 
-import com.cabinet.gestioncabinetback.entities.Doctor;
-import com.cabinet.gestioncabinetback.entities.patient;
+import com.cabinet.gestioncabinetback.user.RDV;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
-public interface PatientRepo  {
+@Repository
+public interface RdvRepo extends JpaRepository<RDV,Long> {
+
+
 }
-//

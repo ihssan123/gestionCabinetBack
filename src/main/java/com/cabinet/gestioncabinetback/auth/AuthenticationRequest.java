@@ -1,4 +1,5 @@
-package com.cabinet.gestioncabinetback.controllers;
+package com.cabinet.gestioncabinetback.auth;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-    private String nom;
-    private  String prenom;
+public class AuthenticationRequest {
+
     private String email;
-    private  String password;
+    String password;
 }
+

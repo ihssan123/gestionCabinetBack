@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.*")
 @ComponentScan(basePackages = { "com.*" })
 @EntityScan("com.*")
+@ComponentScan(basePackages = "com.cabinet.gestioncabinetback") // Add your package here
+
 public class GestionCabinetBackApplication {
 
 	public static void main(String[] args) {

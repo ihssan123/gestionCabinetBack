@@ -23,6 +23,6 @@ public class RDV {
     private boolean etat;
     @ManyToOne
     @JoinColumn(name="idUser", nullable=false)
-    private User doctor;
+    private User user;
 
 }

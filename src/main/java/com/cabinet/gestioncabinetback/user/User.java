@@ -38,8 +38,11 @@ public class User implements UserDetails {
     private String adresse;
     @Column(name = "diplome")
     private String diplome;
-    @OneToMany(mappedBy="user")
-    private List<RDV> rdv;
+    @OneToMany(mappedBy="doctor")
+    private List<RDV> RDVDoc;
+
+    @OneToMany(mappedBy="patient")
+    private List<RDV> RDVPat;
 
 
     @Enumerated(EnumType.STRING)

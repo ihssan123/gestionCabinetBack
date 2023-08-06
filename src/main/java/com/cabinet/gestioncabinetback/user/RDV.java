@@ -1,8 +1,10 @@
 package com.cabinet.gestioncabinetback.user;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,11 +20,17 @@ public class RDV {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(name = "dateRDV")
-    private Date dateRDV;
-    @Column(name = "etat")
-    private boolean etat;
+    private LocalDate dateRDV;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="idUser", nullable=false)
-    private User user;
+    @JoinColumn(name="doctor_id", nullable=false)
+    private User doctor;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="patient_id", nullable=true)
+    private User patient;
 
 }

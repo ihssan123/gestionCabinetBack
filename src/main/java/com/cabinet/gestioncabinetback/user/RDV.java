@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,13 +15,15 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @Builder
 @Entity
+
 @Access(AccessType.FIELD)
 public class RDV {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(name = "dateRDV")
-    private LocalDate dateRDV;
+    private LocalDateTime dateRDV;
+
     @Enumerated(EnumType.STRING)
     private Status status;
     @JsonIgnore

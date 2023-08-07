@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/rdv")
+@CrossOrigin(origins = "*")
 public class RDVController {
         private final RDVservice _rdVservice;
         private  final RdvRepo rdvRepo;
@@ -45,13 +46,7 @@ public class RDVController {
     }
 
 
-    @PostMapping("/doc")
-        public RDV planifierDocRDV(HttpServletRequest request,RDV rdv) {
-        var email = jwtHelper.getEmail(request);
-        return _rdVservice.planAppointment(rdv,email);
 
-
-        }
     @GetMapping("/doc/getallRDV")
     public List<RDV> getallrdv(HttpServletRequest request) {
         var email = jwtHelper.getEmail(request);
@@ -59,21 +54,7 @@ public class RDVController {
 
 
     }
-    @PostMapping("/patient/Request/{idRdv}")
-    public RDV createAppointmentRequest(HttpServletRequest request, @PathVariable Long idRdv){
-        var email = jwtHelper.getEmail(request);
-      return  _rdVservice.createAppointmentRequest(email,idRdv);
 
-
-    }
-    @PostMapping("/doc/accept/{idRdv}")
-    public RDV acceptAppointment(@PathVariable Long idRdv){
-      return _rdVservice.acceptAppointment(idRdv);
-    }
-    @PostMapping("/doc/Rejet/{idRdv}")
-    public RDV RefuseAppointment(@PathVariable Long idRdv){
-        return _rdVservice.RefuseAppointment(idRdv);
-    }
 
 
 

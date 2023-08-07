@@ -1,10 +1,7 @@
 package com.cabinet.gestioncabinetback.service;
 
 import com.cabinet.gestioncabinetback.repositories.RdvRepo;
-import com.cabinet.gestioncabinetback.user.RDV;
-import com.cabinet.gestioncabinetback.user.Status;
-import com.cabinet.gestioncabinetback.user.User;
-import com.cabinet.gestioncabinetback.user.UserRepository;
+import com.cabinet.gestioncabinetback.user.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +18,16 @@ public class RDVservice {
     }
 
     //fonction for doctor who can put the plan of available appointment
-    public RDV planAppointment(RDV rdv, String email) {
-             rdv.setStatus(Status.IN_PROGRESS); // The RDV is not confirmed initially
+    public RDV planAppointment(RDVDocRequest rdv, String email) {
+        var rdvEntity = new RDV();
+        rdvEntity.setDateRDV(rdv.getDateRDV());
+        rdvEntity.setStatus(Status.IN_PROGRESS); // The RDV is not confirmed initially
         User doctor = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
 
-        rdv.setDoctor(doctor);
+        rdvEntity.setDoctor(doctor);
        // doctor.getRDVDoc().add(rdv);
 
-        return rdvRepository.save(rdv);
+        return rdvRepository.save(rdvEntity);
     }
     public List<RDV>  RDVOfDoctor(String email){
         User doctor = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
@@ -43,7 +42,7 @@ public class RDVservice {
         User patient = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Patient not found"));
        RDV rdv= rdvRepository.findById(idRdv).get();
-        rdv.setStatus(Status.IN_PROGRESS);// The RDV is not confirmed initially
+        rdv.setStatus(Status.RESERVED);// The RDV is not confirmed initially
         rdv.setPatient(patient);
 
         return rdvRepository.save(rdv);

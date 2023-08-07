@@ -3,23 +3,29 @@ import com.cabinet.gestioncabinetback.auth.AuthenticationRequest;
 import com.cabinet.gestioncabinetback.auth.AuthenticationResponse;
 import com.cabinet.gestioncabinetback.auth.AuthenticationService;
 import com.cabinet.gestioncabinetback.auth.RegisterRequest;
+import com.cabinet.gestioncabinetback.helpers.jwtHelper;
+import com.cabinet.gestioncabinetback.user.User;
+import com.cabinet.gestioncabinetback.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+
+//@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService service;
+
+    @Autowired
+    public  final UserRepository userRepository;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -57,6 +63,13 @@ public ResponseEntity authenticate(
             HttpServletResponse response
     ) throws IOException {
         service.refreshToken(request, response);
+    }
+
+    @GetMapping("/Profile")
+    public ResponseEntity<User> docProfile(HttpServletRequest request) {
+        var email = jwtHelper.getEmail(request);
+        return ResponseEntity.ok(userRepository.findByEmail(email).get());
+
     }
 
 

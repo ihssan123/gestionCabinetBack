@@ -1,6 +1,7 @@
 package com.cabinet.gestioncabinetback.user;
 
 import com.cabinet.gestioncabinetback.token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,7 +27,7 @@ public class User implements UserDetails {
     private String firstname;
     @Column(name = "prenom")
     private String lastname;
-    @Column(name = "email")
+    @Column(name = "email", unique = true )
     private String email;
     @Column(name = "password")
     private String password;
@@ -38,9 +39,10 @@ public class User implements UserDetails {
     private String adresse;
     @Column(name = "diplome")
     private String diplome;
+    @JsonIgnore
     @OneToMany(mappedBy="doctor")
     private List<RDV> RDVDoc;
-
+    @JsonIgnore
     @OneToMany(mappedBy="patient")
     private List<RDV> RDVPat;
 
@@ -48,8 +50,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
